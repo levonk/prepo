@@ -1,0 +1,77 @@
+---
+##
+## Show Hidden Files in Finder
+##
+- name: Display Hidden Files in Finder
+  shell: defaults write com.apple.finder AppleShowAllFiles -bool YES
+
+##
+## Enable Safari Debug Menu
+##
+- name: Enable Mac Safari Debug Menu
+  shell: defaults write com.apple.safari IncludeDebugMenu -bool YES
+
+##
+## Set default save dialog to expanded view
+##
+- name: Set Mac Save Dialog to Expanded by Default
+  shell: defaults write -g NSNavPanelExpandedStateForSaveMode -bool YES
+
+##
+## Change Where Screen Shots Are Save To
+##
+- name: Set Mac Screen Shot Save Path
+  shell: defaults write com.apple.screencapture 'localtion' -string '~/Pictures/Screenshots'
+
+##
+## Helpful Login Screen Info
+##
+# Options include:
+#   HostName
+#   SystemBuild
+#   SerialNumber
+#   IPAddress
+#   DSStatus
+#   Time
+- name: Set Mac Login Screen Extra Info
+  shell: defaults write com.apple.loginwindow 'AdminHostInfo' -string 'HonstName'
+
+##
+## Terminal cleanup
+##
+- name: Set Mac Terminal zsh shell
+  shell: defaults write com.apple.Terminal 'Shell' -string '/bin/zsh'
+
+- name: Get current Mac Terminal profile
+  shell: defaults read com.apple.Terminal 'Default Window Settings'
+  register: terminal_theme
+  changed_when: false
+
+- name: Ensure custom Terminal profile is added.
+  shell: open files/Solarized-Dark.terminal
+  changed_when: false
+  when: "'Solarized-Dark' not in terminal_theme.stdout"
+
+- name: Ensure custom Terminal profile is set as default.
+  shell: "{{ item }}"
+  with_items:
+    - defaults write com.apple.Terminal 'Default Window Settings' -string 'Solarized-Dark'
+    - defaults write com.apple.Terminal 'Startup Window Settings' -string 'Solarized-Dark'
+  changed_when: false
+  when: "'Solarized-Dark ansi' not in terminal_theme.stdout"
+
+##
+## Dock cleanup
+##
+- name: Dock clean
+  shell: dockutil --remove '{{ item }}'
+  ignore_errors: true
+  with_tems: dockitems_to_remove
+
+- name: Dock load
+  shell: dockutil --find 'PP item.name }}' || dockutil --add '{{ item.path }}'
+  with_tems: dockitems_to_persist
+
+- name: Dock order
+  shell: dockutil --move 'PP item.name }}' --position '{{ item.pos }}'
+  with_tems: dockitems_to_persist

@@ -87,3 +87,31 @@
   shell: dockutil --move 'PP item.name }}' --position '{{ item.pos }}'
   with_tems: dockitems_to_persist
   when: ansible_distribution == 'MacOSX'
+
+##
+## Homebrew Packages
+##
+- name: Install necessary homebrew packages
+  homebrew: name={{ item }} state=present
+  with_items: homebrew_applications
+    - wget
+    - apple-gcc42
+    - vim
+    - ack
+    - git
+    - tmux
+    - byobu
+##
+## Cask Applications
+##
+- name: check necessary cask packages
+  shell: brew cask list | grep {{ item }}
+  register: installed_cask_applications
+  with_items: cask_applications
+  ignore_errors: true
+- name: Install necessary cask packages
+  shell: brew cask install {{ item }}
+  register: installed_applications
+  with_items: cask_applications
+  ignore_errors: false
+  when: item not in installed_cask_applications.results|map(attribute='stdout')

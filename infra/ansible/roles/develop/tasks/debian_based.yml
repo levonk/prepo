@@ -1,0 +1,20 @@
+---
+##
+## Add PyCharm
+##
+- name: Add Jetbrains to apt source list
+  file: path=/etc/apt/sources.list.d/jetbrains.list state=touch
+- name: Append Jetbrains repository
+  lineinfile: dest=/etc/apt/apt/sources.list.d/jetbrains.list line='deb http://archive.getdeb.net/ubuntu trusty-getdeb apps'
+- name: Add Jetbrains apt-key
+  apt_key: url=http://archive.getdeb.net/getdeb-archive.key state=present
+- name: Apt Update Cache
+  apt: update_cache=yes
+
+##
+## Debian Packages
+##
+- name: Install debian based packages
+  apt: name={{ item }} state=latest install_recommendno
+  with_items: debian_based_packages
+...

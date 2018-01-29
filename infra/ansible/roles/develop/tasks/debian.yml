@@ -1,0 +1,11 @@
+---
+- name: Apt Update Cache
+  apt: update_cache=yes
+
+##
+## Debian Packages
+##
+- name: Install debian packages
+  apt: name={{ item }} state=latest install_recommendno
+  with_items: debian_packages
+...

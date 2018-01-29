@@ -1,9 +1,23 @@
 ---
 downloads: ~/.ansible-downloads/
 
-homebrew_installed_packages:
+debian_based_packages:
+  - htop
+
+homebrew_applications:
   - autoconf
+  - automake
+  - gettext
+  - htop-osx
+  - jq
+  - libxml2
+  - node
+  - phantomjs
   - bash-completion
+  - zsh
+  - zsh-completions
+  - cmatrix
+  - ffmpeg
   - chromedriver
   - doxygen
   - gettext
@@ -27,13 +41,19 @@ homebrew_installed_packages:
   - pv
   - wget
   - wrk
+  - tree
+  - fzf
+  - caskroom/cask/brew-cask
+  - octave
 
 homebrew_taps:
   - homebrew/core
+  - homebrew/science
   - caskroom/cask
+  - caskroom/versions
 
 homebrew_cask_appdir: /Applications
-homebrew_cask_apps:
+cask_applications:
   - docker
   - dropbox
   - firefox
@@ -42,18 +62,50 @@ homebrew_cask_apps:
   - licecap
   - limechat
   - macvim
-  - sequel-pro
   - skitch
   - slack
   - sublime-text
   - transmit
-  - vagrant
   - virtualbox
+  - vagrant
+  - 1password
+  - alfred
+  - android-file-transfer
+  - asepsis
+  - appcleaner
+  - caffeine
+  - cheatsheet
+  - doubletwist
+  - google-drive
+  - google-hangouts
+  - flux
+  - latexian
+  - pdftk
+  - spectacle
+  - sublime-text
+  - superduper
+  - totalfinder
+  - transmission
+  - vlc
+  - caskroom/cask/intellij-idea
+  - sqlworkbenchj
+  - squirrel
+  - valentina-studio
+  - iterm2
+  - font-source-code-pro
+  - font-source-code-pro-for-powerline
+  - font-source-code-sans-pro
+  - qlcolorcode
+  - qlmarkdown
+  - qlprettypatch
+  - qlstephen
+  - epubquicklook
+  - qlimagesize
+  - quicklook-csv
+  - quicklook-json
 
 dockitems_to_remove:
-  - Launchpad
   - Mail
-  - Safari
   - Contacts
   - Notes
   - Reminders
@@ -63,9 +115,11 @@ dockitems_to_remove:
   - FaceTime
   - iTunes
   - iBooks
-  - App Store
   - System Preferences
   - Calendar
+#  - App Store
+#  - Launchpad
+#  - Safari
 
 dockitems_to_add:
   - name: Google Chrome

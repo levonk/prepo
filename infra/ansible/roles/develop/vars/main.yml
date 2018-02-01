@@ -45,6 +45,7 @@ homebrew_applications:
   - fzf
   - caskroom/cask/brew-cask
   - octave
+  - adr-tools
 
 homebrew_taps:
   - homebrew/core

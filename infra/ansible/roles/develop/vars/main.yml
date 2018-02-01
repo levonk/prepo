@@ -46,6 +46,7 @@ homebrew_applications:
   - caskroom/cask/brew-cask
   - octave
   - adr-tools
+  - graphviz
 
 homebrew_taps:
   - homebrew/core
